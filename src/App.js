@@ -5,13 +5,14 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import Login from './Login.js';
 import ProfilePage from './UserProfile.js';
+import Elimination from './Components/Elimination';
 
 class App extends React.Component{
 
     constructor(props){
         super(props);
         this.state = {
-            activePage: 'login'
+            activePage: 'elimination'
         }
     }
 
@@ -33,6 +34,7 @@ class App extends React.Component{
         <div className="App">
           <Login active={this.state.activePage === 'login'} switchPage={this.switchPage}/>
           <ProfilePage active={this.state.activePage === 'userProfile'} switchPage={this.switchPage} />
+          <Elimination active={this.state.activePage === 'elimination'} switchPage={this.switchPage} />
         </div>
       );
     }
