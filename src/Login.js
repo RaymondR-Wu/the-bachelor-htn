@@ -1,6 +1,7 @@
 import React from 'react';
 import './Login.css';
 import { Button, Form, Modal, Col } from 'react-bootstrap';
+import axios from 'axios';
 
 export default class Login extends React.Component{
     constructor(props){
@@ -10,7 +11,14 @@ export default class Login extends React.Component{
 
         this.state = {
             activeView: this._enums.Login,
-            modalActive: false
+            modalActive: false,
+            email: '',
+            firstName: '',
+            lastName: '',
+            password: '',
+            confirmPassword: '',
+            username: '',
+            phone: ''
         }
     }
 
@@ -26,48 +34,67 @@ export default class Login extends React.Component{
             activeView: this.state.activeView%2 + 1
         })
     }
+
+    handleChange = (field, e) => {
+        this.setState({
+            [field]: e.target.value
+        })
+    }
     
     sendRegistration = () => {
-        console.log("heyo alvino");
+        let data = {
+            'firstName': this.state.firstName,
+            'lastName': this.state.lastName,
+            'password': this.state.password,
+            'username': this.state.username,
+            'phone': this.state.phone,
+            'email': this.state.email
+        }
+    }
+
+    sendLogin = () => {
+        let data = {
+            'email': this.state.email,
+            'password': this.state.password,
+        }
     }
 
     renderForm = () => {
-        console.log(this.state.activeView, this._enums.Login, this._enums.Registration);
         if(this.state.activeView === this._enums.Registration){
             return(
                 <Form>
                     <Form.Row>
                         <Form.Group as={Col} controlId="formFirstName">
                             <Form.Label>First Name</Form.Label>
-                            <Form.Control placeholder = "Enter name" />
+                            <Form.Control value={this.state.firstName} onChange={(e) => this.handleChange('firstName', e)} placeholder = "Enter name" />
                         </Form.Group>
                         <Form.Group as={Col} controlId="formLastName">
                             <Form.Label>Last Name</Form.Label>
-                            <Form.Control placeholder = "Enter name" />
+                            <Form.Control value={this.state.lastName} onChange={(e) => this.handleChange('lastName', e)} placeholder = "Enter name" />
                         </Form.Group>
                     </Form.Row>
 
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" placeholder = "Enter email" />
+                        <Form.Control value={this.state.email} onChange={(e) => this.handleChange('email', e)} type="email" placeholder = "Enter email" />
                     </Form.Group>
                     <Form.Group controlId="formGroupPassword">
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" />
+                        <Form.Control value={this.state.password} onChange={(e) => this.handleChange('password', e)} type="password" placeholder="Password" />
                     </Form.Group>
                     <Form.Group controlId="formGroupConfirmPassword">
                         <Form.Label>Confirm Password</Form.Label>
-                        <Form.Control type="password" placeholder="Confirm Password" />
+                        <Form.Control value={this.state.confirmPassword} onChange={(e) => this.handleChange('confirmPassword', e)} type="password" placeholder="Confirm Password" />
                     </Form.Group>
 
                     <Form.Row>
                         <Form.Group as={Col} controlId="formUsername">
                             <Form.Label>Username</Form.Label>
-                            <Form.Control placeholder = "Username" />
+                            <Form.Control value={this.state.username} onChange={(e) => this.handleChange('username', e)} placeholder = "Username" />
                         </Form.Group>
                         <Form.Group as={Col} controlId="formPhone">
                             <Form.Label>Phone Number</Form.Label>
-                            <Form.Control placeholder = "(613)-123-4567" />
+                            <Form.Control value={this.state.phone} onChange={(e) => this.handleChange('phone', e)} placeholder = "(613)-123-4567" />
                         </Form.Group>
                     </Form.Row>
                 </Form>
@@ -77,11 +104,11 @@ export default class Login extends React.Component{
                 <Form>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" placeholder = "Enter email" />
+                        <Form.Control value={this.state.email} onChange={(e) => this.handleChange('email', e)} type="email" placeholder = "Enter email" />
                     </Form.Group>
                     <Form.Group controlId="formGroupPassword">
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" />
+                        <Form.Control value={this.state.password} onChange={(e) => this.handleChange('password', e)} type="password" placeholder="Password" />
                     </Form.Group>
                 </Form>
             )
