@@ -51,11 +51,11 @@ export class Elimination extends Component {
   render() {
     if (!this.props.active) return null;
     return (
-      <div style={{ width: '100%', height: '100%', border: 'solid', borderColor: 'orange' }}>
-        <div style={{ width: '100%', height: '50%', backgroundColor: 'blue' }}>
+      <div style={{ width: '100%', display:'flex',flexDirection:'column', flex: '1', height: '100%', border: 'solid', borderColor: 'orange' }}>
+        <div style={{ flex: '0 1 auto', backgroundColor: 'blue' }}>
           This is a header bar
-                </div>
-        <div style={{ width: '100%', height: '100%', backgroundColor: 'black' }}>
+        </div>
+        <div style={{ flex:'1 1 auto', backgroundColor: 'black' }}>
           {this.imageList()}
         </div>
       </div>

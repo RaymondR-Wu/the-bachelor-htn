@@ -25,7 +25,7 @@ class App extends React.Component{
         if(userDetails){
             userDetails = JSON.parse(userDetails);
 
-            this.setState({ activePage:"userProfile" });
+            //this.setState({ activePage:"userProfile" });
         } 
     }
 
