@@ -50,6 +50,20 @@ export default class Login extends React.Component{
             'phone': this.state.phone,
             'email': this.state.email
         }
+        
+        axios({
+            url: "http://localhost:8000/users/register",
+            method: "POST",
+            data: data
+        }).then((response) => {
+            localStorage.setItem('userDetails', response.data);
+            console.log(response.data);
+            this.setState({
+                modalActive: false
+            }, () => {this.props.switchPage('profile')});
+        }).catch((err) => {
+            alert('try again buddy');
+        })
     }
 
     sendLogin = () => {
@@ -57,6 +71,22 @@ export default class Login extends React.Component{
             'email': this.state.email,
             'password': this.state.password,
         }
+
+        axios({
+            url: "http://localhost:8000/users/login",
+            method: "POST",
+            data: data
+        }).then((response) => {
+            localStorage.setItem('userDetails', response.data);
+            console.log(response.data);
+            this.setState({
+                modalActive: false
+            }, () => {
+                this.props.switchPage('profile');
+            });
+        }).catch((err) => {
+            alert('nope not allowed in');
+        })
     }
 
     renderForm = () => {
