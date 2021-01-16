@@ -27,7 +27,9 @@ export default class Login extends React.Component{
         })
     }
     
-    this.sendRe
+    sendRegistration = () => {
+        console.log("heyo alvino");
+    }
 
     renderForm = () => {
         console.log(this.state.activeView, this._enums.Login, this._enums.Registration);
