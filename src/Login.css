@@ -1,0 +1,72 @@
+.login-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex: 0;
+}
+
+.login-container {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    background: radial-gradient(50% 50% at 50% 50%, #FE6161 0%, rgba(254, 97, 97, 0) 100%);
+    padding: 1rem;
+}
+
+.title {
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    color: #2D3142;
+}
+
+.login-body {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+.clickable-words {
+    color:deepskyblue
+}
+
+.clickable-words:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.btn-primary, .btn-primary:visited {
+    background-color: #FFCB37;
+    border-color: #FFCB37;
+    font-size: 25px;
+    max-width: 18rem;
+    color: #2D3142;
+    border-radius: 50px;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+}
+
+.btn-primary:active, .btn-primary:hover, .btn-primary:focus {
+    background-color: #FCBA00 !important;
+    border-color: #FCBA00 !important;
+    color: #2D3142 !important;
+}
+
+.btn-secondary, .btn-secondary:visited {
+    background-color: #2D3142;
+    border-color: #2D3142;
+    font-size: 20px;
+    color: #FFCB37;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+}
+
+.btn-secondary:active, .btn-secondary:hover, .btn-secondary:focus {
+    background-color: #414868 !important;
+    border-color: #414868 !important;
+}
