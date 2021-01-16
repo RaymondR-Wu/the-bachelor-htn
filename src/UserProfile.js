@@ -18,6 +18,8 @@ export default class ProfilePage extends React.Component{
     }
 
     componentDidMount(){
+        if(!this.props.active) return null;
+
         if(this.props.userProfile){
             console.log("edit off")
         } else{
@@ -46,7 +48,10 @@ export default class ProfilePage extends React.Component{
                         </div>
                     </div>
                     <div className="profile-carousel">
-                        <p className="profile-name">Alvin Dai</p>
+                        <div className="carousel-container">
+                            <p className="profile-name">View Pictures</p>
+
+                        </div>
                     </div>
                 </div>
             </div>

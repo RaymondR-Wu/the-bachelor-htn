@@ -19,6 +19,7 @@
     flex: 3;
     border: 1px solid blue;
     flex-direction: column;
+    align-items: center;
 }
 
 .profile-image {
@@ -33,7 +34,18 @@
     color: #484F6C;
     font-weight: bold;
     align-items: flex-start;
-    width: 17rem;
+    min-width: 17rem;
+    flex-grow: 1;
+}
+
+.carousel-container {
+    display:flex;
+    max-width: 40rem;
+    width: 40vw;
+    border: 1px solid purple;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
 }
 
 .profile-name {
