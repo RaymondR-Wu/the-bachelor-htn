@@ -56,8 +56,7 @@ export default class Login extends React.Component{
             method: "POST",
             data: data
         }).then((response) => {
-            localStorage.setItem('userDetails', response.data);
-            console.log(response.data);
+            localStorage.setItem('userDetails', JSON.stringify(response.data));
             this.setState({
                 modalActive: false
             }, () => {this.props.switchPage('profile')});
@@ -77,14 +76,14 @@ export default class Login extends React.Component{
             method: "POST",
             data: data
         }).then((response) => {
-            localStorage.setItem('userDetails', response.data);
-            console.log(response.data);
+            localStorage.setItem('userDetails', JSON.stringify(response.data));
             this.setState({
                 modalActive: false
             }, () => {
-                this.props.switchPage('profile');
+                this.props.switchPage('userProfile');
             });
         }).catch((err) => {
+            console.log("BRUH");
             alert('nope not allowed in');
         })
     }

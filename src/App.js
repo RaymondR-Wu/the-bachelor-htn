@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import Login from './Login.js';
+import ProfilePage from './UserProfile.js';
 
 class App extends React.Component{
 
@@ -19,21 +20,11 @@ class App extends React.Component{
     }
 
     componentDidMount(){
-        let jwt = localStorage.getItem('jwt');
-        return; //this needs to be sent later..
-        if(jwt){
-            //send request to backend and check if jwt is valid
+        let userDetails = localStorage.getItem('userDetails');
+        if(userDetails){
+            userDetails = JSON.parse(userDetails);
 
-            //check if the user filled in their bio and whatnot
-            
-            let detailsEntered = false;
-            let activePage = "mainPage";
-
-            if(!detailsEntered){
-                activePage = "initialDetails";
-            }
-
-            this.setState({ activePage });
+            this.setState({ activePage:"userProfile" });
         } 
     }
 
@@ -41,6 +32,7 @@ class App extends React.Component{
       return (
         <div className="App">
           <Login active={this.state.activePage === 'login'} switchPage={this.switchPage}/>
+          <ProfilePage active={this.state.activePage === 'userProfile'} switchPage={this.switchPage} />
         </div>
       );
     }
