@@ -3,8 +3,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import Login from './Login.js';
-import ProfilePage from './UserProfile.js';
+import Login from './Login';
+import Header from './Components/Header';
+import ProfilePage from './UserProfile';
 import Elimination from './Components/Elimination';
 
 class App extends React.Component{
@@ -25,16 +26,17 @@ class App extends React.Component{
         if(userDetails){
             userDetails = JSON.parse(userDetails);
 
-            //this.setState({ activePage:"userProfile" });
+            this.setState({ activePage:"userProfile" });
         } 
     }
 
     render(){
       return (
-        <div className="App" style = {{width: '100%', height: '100%', border: 'solid', borderColor:'yellow'}}>
-          <Login active={this.state.activePage === 'login'} switchPage={this.switchPage}/>
-          <ProfilePage active={this.state.activePage === 'userProfile'} switchPage={this.switchPage} />
-          <Elimination active={this.state.activePage === 'elimination'} switchPage={this.switchPage} />
+        <div className="App" style = {{width: '100%', height: '100%'}}>
+              <Header activePage={this.state.activePage} />
+              <Login active={this.state.activePage === 'login'} switchPage={this.switchPage} />
+              <ProfilePage active={this.state.activePage === 'userProfile'} switchPage={this.switchPage} />
+              <Elimination active={this.state.activePage === 'elimination'} switchPage={this.switchPage} />
         </div>
       );
     }
