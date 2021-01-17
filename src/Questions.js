@@ -2,8 +2,7 @@ import React from 'react';
 import {Image, Carousel} from 'react-bootstrap';
 import axios from 'axios';
 import { url } from './config';
-import { Header, List, Button, Search, Menu, Form, TextArea, Popup} from 'semantic-ui-react';
-import ScrollAnimation from 'react-animate-on-scroll';
+import {Card, Header, List, Button, Search, Menu, Form, TextArea, Popup} from 'semantic-ui-react';
 
 export default class Questions extends React.Component{
     constructor(props){
@@ -92,19 +91,21 @@ export default class Questions extends React.Component{
               return (
 
                 <List.Item style = {{padding: '0px'}}>
-                  <div style = {{margin: "10px", padding: '0px'}}>
-                    Question {parseInt(item.question.round)+1}: {item.question.question}
-                  </div>
-                  
-                  <>
-                    {item.answers.map((answer) => {
-                      return(
-                        <Popup trigger = {<img style = {{height: '50px', width: '50px', borderRadius: '50px', margin: "10px"}} src={`data:image/jpeg;base64,${this.state.users[answer.username].profilepic}`}/>}>
-                          {answer.answer}
-                        </Popup>
-                      )
-                    })}
-                  </>
+                  <Card style = {{width: '100%'}}>
+                    <div style = {{margin: "10px", padding: '0px'}}>
+                      Question {parseInt(item.question.round)+1}: {item.question.question}
+                    </div>
+                    
+                    <div style = {{display: 'inline-flex'}}>
+                      {item.answers.map((answer) => {
+                        return(
+                          <Popup trigger = {<img style = {{height: '50px', width: '50px', borderRadius: '50px', margin: "10px"}} src={`data:image/jpeg;base64,${this.state.users[answer.username].profilepic}`}/>}>
+                            {answer.answer}
+                          </Popup>
+                        )
+                      })}
+                    </div>
+                  </Card>
                 </List.Item>
               )
             })}
@@ -124,7 +125,7 @@ export default class Questions extends React.Component{
                     <div style = {{fontSize: '30px'}}>
                         Chats
                     </div>
-                    <Search style = {{marginTop: '20px'}} open = {false}/>
+                    <Search style = {{marginTop: '20px'}} open = {false} placeholder = "Search"/>
 
                     <Menu vertical style = {{border: 'none', borderColor: 'yellow', width: '100%', flex: 'column', margin: '10px auto'}}>
                         <Menu.Item onClick = {() => {this.clickedChat(0)}} style = {{height: '10vh', borderColor: 'black', border: 'none'}} active = {this.state.activeChatIdx === 0}>
@@ -133,7 +134,7 @@ export default class Questions extends React.Component{
                             </div>
                             <div style = {{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
                                 <div style = {{left: '0px'}}> W/ Channing Tatum, Zac Efron, ... </div>
-                                <div style = {{right: '0px'}}> Mr.Tatum: Hey </div>
+                                <div style = {{right: '0px'}}> Tatum: Hey Pappi</div>
                             </div>
                         
                         </Menu.Item>
@@ -159,17 +160,32 @@ export default class Questions extends React.Component{
                             </div>
                             
                         </Menu.Item>
+
+                        <Menu.Item style = {{height: '10vh', borderColor: 'black', border: 'none'}} >
+                            <div style = {{textAlign: 'left'}}>
+                                +
+                            </div>
+                            Browse Open Pits
+                        </Menu.Item>
+                        <Menu.Item style = {{height: '10vh', borderColor: 'black', border: 'none'}} >
+                            <div style = {{textAlign: 'left'}}>
+                                +
+                            </div>
+                            Create Your Own Pit
+                        </Menu.Item>
                     </Menu>
                 </div>
 
                 <div style = {{position: 'relative', height: '20%', width: '100%', border: 'none', borderColor: 'orange', margin: '20px 20px 0 20px', alignItems: 'left', display: 'inline-flex'}}> 
-                    <div style = {{height: '100%', width: '50%', border: 'none', borderColor: 'blue', alignItems: 'stretch', marginRight: '5%', padding: '0px'}}>
-                      <div style = {{float: 'left', margin: '10px', fontSize: '20px'}}>
-                        What else do you want to know?
+                    <div style = {{height: '100%', width: '60%', border: 'none', borderColor: 'blue', alignItems: 'stretch', marginRight: '5%', padding: '0px'}}>
+                      <div style = {{position: 'relative', float: 'left', margin: '10px', fontSize: '20px', display: 'flex', flex:'1', flexDirection: 'row', justifyContent: 'space-between'}}>
+                        <div style = {{float: 'left'}}>
+                          What else do you want to know?
+                        </div>
                       </div>
                       
                       <Form style = {{marginTop: '10px'}}>
-                        <TextArea onChange = {(e) => this.onChange(e)}rows = {6} style = {{height: '50%'}} placeholder='Tell us more' />
+                        <TextArea onChange = {(e) => this.onChange(e)}rows = {6} style = {{height: '50%'}} placeholder='Ask anything you want' />
                       </Form>
 
                       <Button onClick = {() => this.onQuestionSubmit()} style = {{float: 'left', marginTop : '10px'}}>
@@ -190,7 +206,7 @@ export default class Questions extends React.Component{
                     
                     
                 </div>
-                <Button onClick = {() => this.clickedEliminate()} labelPosition = "right" icon = "right chevron" style = {{position: 'absolute', bottom: '5%', right: '5%'}} content = "Eliminate"/>
+                <Button disabled = {true} onClick = {() => this.clickedEliminate()} labelPosition = "right" icon = "right chevron" style = {{position: 'absolute', bottom: '5%', right: '5%'}} content = "Eliminate"/>
             </div>
         )
     }

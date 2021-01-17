@@ -41,8 +41,8 @@ export default class Header extends React.Component {
                         Matches
                     </p>
                     <p 
-                        className={this.props.activePage === 'pits' ? 'header-sections selectedSection' : 'header-sections'}
-                        onClick={() => this.props.switchPage('pits')}
+                        className={this.props.activePage === 'pits' || this.props.activePage === 'questions'  ? 'header-sections selectedSection' : 'header-sections'}
+                        onClick={() => this.props.switchPage('questions')}
                     >
                         Pits
                     </p>

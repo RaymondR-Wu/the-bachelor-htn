@@ -2,8 +2,8 @@ import React from 'react';
 import {Image, Carousel} from 'react-bootstrap';
 import axios from 'axios';
 import { url } from './config';
-import { Header, List, Button, Search, Menu} from 'semantic-ui-react';
 import AnswerPage from './Components/AnswerPage';
+import { Header, List, Button, Search, Menu, Popup} from 'semantic-ui-react';
 
 export default class Pits extends React.Component{
     constructor(props){
@@ -58,6 +58,7 @@ export default class Pits extends React.Component{
         })
         .then((res) => {
             console.log("good");
+            this.props.switchPage('questions');
         })
         .catch((err) => {
             console.log(err);
@@ -65,16 +66,15 @@ export default class Pits extends React.Component{
     }
 
     imageList = () => {
-        console.log(this.state.imageData.length);
-        const radius = 30;
+        let num = this.state.imageData.length;
         return (
           <List horizontal>
             {this.state.imageData.map((item, idx) => {
               return (
                 <List.Item>
                   {/* <Image style = {{height: '150px', width: '150px'}} src={`data:image/jpeg;base64,${item.photos}`} /> */}
-                  
-                  <img onClick={() => this.clickedImage(item)} style={{position: 'absolute', height: '15vh', width: '15vh', borderRadius: '15vh', borderWidth: '2px', borderStyle: this.state.selected === item.username ? 'solid' : 'none', borderColor: 'red', top: '30vh', left: '50%', transform: `rotate(${360*idx/7}deg) translate(${30}vh) rotate(${-360*idx/7}deg)`}} src={`data:image/jpeg;base64,${item.profilepic}`} />
+                  <Popup trigger = {
+                  <img onClick={() => this.clickedImage(item)} style={{position: 'absolute', height: '15vh', width: '15vh', borderRadius: '15vh', borderWidth: '2px', borderStyle: this.state.selected === item.username ? 'solid' : 'none', borderColor: 'red', top: '30vh', left: '50%', transform: `rotate(${360*idx/num}deg) translate(${30}vh) rotate(${-360*idx/num}deg)`}} src={`data:image/jpeg;base64,${item.profilepic}`} alt = {item.username}/>}> {item.username} </Popup>
                 </List.Item>
               )
             })}
@@ -90,7 +90,7 @@ export default class Pits extends React.Component{
                     <div style = {{fontSize: '30px'}}>
                         Chats
                     </div>
-                    <Search style = {{marginTop: '20px'}} open = {false}/>
+                    <Search style = {{marginTop: '20px'}} open = {false} placeholder = "Search"/>
 
                     <Menu vertical style = {{border: 'none', borderColor: 'yellow', width: '100%', flex: 'column', margin: '10px auto'}}>
                         <Menu.Item onClick = {() => {this.clickedChat(0)}} style = {{height: '10vh', borderColor: 'black', border: 'none'}} active = {this.state.activeChatIdx === 0}>
@@ -145,16 +145,15 @@ export default class Pits extends React.Component{
                 {/*<div style = {{position: 'relative', width: '100%', border: 'none', borderColor: 'orange', marginTop: '10px'}}>
 =======
                 </div>
-<<<<<<< HEAD
 
                 <div style = {{position: 'relative', width: '100%', border: 'none', borderColor: 'orange', marginTop: '10px'}}> 
-                    <Button onClick = {() => this.clickedBack()} labelPosition = "left" icon="left chevron" content = "back" style = {{left: '0px', position: "absolute", margin: "0px 0px 0px 30px"}}/>
+                    <Button onClick = {() => this.clickedBack()} labelPosition = "left" icon="left chevron" content = "Back" style = {{left: '0px', position: "absolute", margin: "0px 0px 0px 30px"}}/>
                     {this.imageList()} 
-=======
                 <div style = {{position: 'relative', width: '100%', border: 'none', borderColor: 'orange', marginTop: '10px'}}>
->>>>>>> 07b171c78e66999499088ab7ba02cf5197a913d7
                     {this.imageList()}
 >>>>>>> b392d550890e168b02e71029339d094bf11d7ceb
+=======
+>>>>>>> Stashed changes
                     <div style = {{position: 'relative', top: '23vh', left: '50%', height: '10%', width: '10%', alignItems: 'center', textAlign: 'center', color: 'white'}}>
                         WHO SHALL BE ELIMINATED?
                         <Button onClick = {() => this.onSubmit()} style = {{marginTop: "2vh", height: '10vh', width: '10vh', borderRadius: '5vh', textAlign: 'center', justifyContent: 'center', alignItems: 'center', fontSize: '90%', padding: '0px'}}>
