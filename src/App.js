@@ -7,12 +7,7 @@ import Login from './Login';
 import Header from './Components/Header';
 import ProfilePage from './UserProfile';
 import Elimination from './Components/Elimination';
-<<<<<<< HEAD
-import AnswerPage from './Components/AnswerPage';
-import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css';
-=======
 import Pits from './Pits';
->>>>>>> 1170f62a3a58530788ead99e6548c7f7e136585f
 
 class App extends React.Component{
 
