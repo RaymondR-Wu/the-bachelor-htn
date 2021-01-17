@@ -316,7 +316,7 @@ export default class ProfilePage extends React.Component{
                                     <Form.Control style={{width: '40vw'}} as="textarea" rows={4} value={this.state.bio} onChange={(e) => { this.handleChange('bio', e) }} />
                                 </Form.Group>
                             </Form>
-                            : <p style={{textAlign: "left"}}> {this.state.bio || 'Bio is currently empty. Edit to have better changes at finding a match'}</p>
+                            : <p style={{textAlign: "left", fontSize: "1.3rem", fontColor:"#484F6C"}}> {this.state.bio || 'Bio is currently empty. Edit to have better changes at finding a match'}</p>
                         }
                     </div>
                 </div>

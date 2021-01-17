@@ -29,7 +29,7 @@ export default class Header extends React.Component {
                                 </defs>
                             </svg>
                         </div>
-                        <p className="title">The Pit</p>
+                        <p className="title">The Hive</p>
                     </div>
                     <p className="header-logout" onClick={this.logOut}>Log Out</p>
                 </div>

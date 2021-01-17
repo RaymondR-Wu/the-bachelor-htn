@@ -23,11 +23,11 @@ export default class Pits extends React.Component{
             url: "http://localhost:8000/users"
         })
         .then((res) => {
-        console.log(res);
-        this.setState({
-            imageData: res.data["rows"].filter(user => !user.eliminated),
-            loading : false
-        })
+            console.log(res);
+            this.setState({
+                imageData: res.data["rows"].filter(user => !user.eliminated),
+                loading: false
+            }, () => {localStorage.setItem('numThings', this.state.imageData.length)});
         })
         .catch((err) => {
         console.log(err, err.message, "BAD12763");
@@ -43,10 +43,10 @@ export default class Pits extends React.Component{
             })
             .then((res) => {
             console.log(res);
-            this.setState({
-                imageData: res.data["rows"].filter(user => !user.eliminated),
-                loading : false
-            })
+                this.setState({
+                    imageData: res.data["rows"].filter(user => !user.eliminated),
+                    loading : false
+                }, () => {localStorage.setItem('numThings', this.state.imageData.length)});
             })
             .catch((err) => {
             console.log(err, err.message, "BAD12763");
@@ -78,6 +78,7 @@ export default class Pits extends React.Component{
         })
         .then((res) => {
             console.log("good");
+            localStorage.setItem('numThings', this.state.imageData.length-1);
             this.props.switchPage('questions');
         })
         .catch((err) => {
@@ -90,11 +91,23 @@ export default class Pits extends React.Component{
         return (
           <List horizontal>
             {this.state.imageData.map((item, idx) => {
+                let imageSource = '';
+                if(item.profilepic && !item.profilepic.includes('data:image')){
+                    imageSource = `data:image/jpeg;base64,${item.profilepic}`
+                } else{
+                    imageSource = item.profilepic
+                }
+
               return (
                 <List.Item>
                   {/* <Image style = {{height: '150px', width: '150px'}} src={`data:image/jpeg;base64,${item.photos}`} /> */}
                   <Popup trigger = {
-                  <img onClick={() => this.clickedImage(item)} style={{position: 'absolute', height: '15vh', width: '15vh', borderRadius: '15vh', borderWidth: '2px', borderStyle: this.state.selected === item.username ? 'solid' : 'none', borderColor: 'red', top: '30vh', left: '50%', transform: `rotate(${360*idx/num}deg) translate(${30}vh) rotate(${-360*idx/num}deg)`}} src={`data:image/jpeg;base64,${item.profilepic}`} alt = {item.username}/>}> {item.username} </Popup>
+                  <img 
+                    onClick={() => this.clickedImage(item)} 
+                    style={{position: 'absolute', height: '15vh', width: '15vh', borderRadius: '15vh', borderWidth: '2px', borderStyle: this.state.selected === item.username ? 'solid' : 'none', borderColor: 'red', top: '30vh', left: '50%', transform: `rotate(${360*idx/num}deg) translate(${30}vh) rotate(${-360*idx/num}deg)`}} 
+                    src={imageSource} 
+                    alt = {item.username}
+                   />}> {item.username} </Popup>
                 </List.Item>
               )
             })}
@@ -163,11 +176,11 @@ export default class Pits extends React.Component{
 
                 {/* <AnswerPage  /> */}
                 <div style = {{position: 'relative', width: '100%', border: 'none', borderColor: 'orange', marginTop: '10px'}}> 
-                    <Button onClick = {() => this.clickedBack()} labelPosition = "left" icon="left chevron" content = "Back" style = {{left: '0px', position: "absolute", margin: "0px 0px 0px 30px"}}/>
+                    <Button onClick = {this.clickedBack} labelPosition = "left" icon="left chevron" content = "Back" style = {{left: '0px', position: "absolute", margin: "0px 0px 0px 30px"}}/>
                     {this.imageList()} 
                     <div style = {{position: 'relative', top: '23vh', left: '50%', height: '10%', width: '10%', alignItems: 'center', textAlign: 'center', color: 'white'}}>
                         WHO SHALL BE ELIMINATED?
-                        <Button onClick = {() => this.onSubmit()} style = {{marginTop: "2vh", height: '10vh', width: '10vh', borderRadius: '5vh', textAlign: 'center', justifyContent: 'center', alignItems: 'center', fontSize: '90%', padding: '0px'}}>
+                        <Button onClick = {this.onSubmit} style = {{marginTop: "2vh", height: '10vh', width: '10vh', borderRadius: '5vh', textAlign: 'center', justifyContent: 'center', alignItems: 'center', fontSize: '90%', padding: '0px'}}>
                             Submit
                         </Button>
                     </div>

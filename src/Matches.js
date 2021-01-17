@@ -3,6 +3,7 @@ import { Image } from 'react-bootstrap';
 import { Search } from 'semantic-ui-react';
 import UserDetails from './UserProfile';
 import './Matches.css';
+import axios from 'axios';
 
 export default class Matches extends React.Component{
     constructor(props){
@@ -15,21 +16,22 @@ export default class Matches extends React.Component{
 
     renderMatches = () => {
         let matchList = [];
-        let selectedUser = JSON.parse(localStorage.getItem('userDetails'));
+        matchList = this.state.matches;
+        //let selectedUser = JSON.parse(localStorage.getItem('userDetails'));
         
-        matchList.push(JSON.parse(JSON.stringify(selectedUser)));
+        //matchList.push(JSON.parse(JSON.stringify(selectedUser)));
 
-        matchList.push(JSON.parse(JSON.stringify(selectedUser)));
-        matchList[1].username = "ADai2";
-        matchList[1].firstname = "Alvin";
-        matchList[1].lastname = "Dai";
-        matchList[1].email = "adai1@ocdsb.ca";
+        //matchList.push(JSON.parse(JSON.stringify(selectedUser)));
+        //matchList[1].username = "ADai2";
+        //matchList[1].firstname = "Alvin";
+        //matchList[1].lastname = "Dai";
+        //matchList[1].email = "adai1@ocdsb.ca";
 
-        matchList.push(JSON.parse(JSON.stringify(selectedUser)));
-        matchList[2].username = "Cab40";
-        matchList[2].firstname = "Catherine";
-        matchList[2].lastname = "Burns";
-        matchList[2].email = "cburns40@ocdsb.ca";
+        //matchList.push(JSON.parse(JSON.stringify(selectedUser)));
+        //matchList[2].username = "Cab40";
+        //matchList[2].firstname = "Catherine";
+        //matchList[2].lastname = "Burns";
+        //matchList[2].email = "cburns40@ocdsb.ca";
         
         
         return(
@@ -55,21 +57,22 @@ export default class Matches extends React.Component{
 
     renderProfile = () => {
         let matchList = []; //hard code for now
-        let selectedUser = JSON.parse(localStorage.getItem('userDetails'));
+        matchList = this.state.matches;
+        //let selectedUser = JSON.parse(localStorage.getItem('userDetails'));
         
-        matchList.push(JSON.parse(JSON.stringify(selectedUser)));
+        //matchList.push(JSON.parse(JSON.stringify(selectedUser)));
 
-        matchList.push(JSON.parse(JSON.stringify(selectedUser)));
-        matchList[1].username = "ADai2";
-        matchList[1].firstname = "Alvin";
-        matchList[1].lastname = "Dai";
-        matchList[1].email = "adai1@ocdsb.ca";
+        //matchList.push(JSON.parse(JSON.stringify(selectedUser)));
+        //matchList[1].username = "ADai2";
+        //matchList[1].firstname = "Alvin";
+        //matchList[1].lastname = "Dai";
+        //matchList[1].email = "adai1@ocdsb.ca";
 
-        matchList.push(JSON.parse(JSON.stringify(selectedUser)));
-        matchList[2].username = "Cab40";
-        matchList[2].firstname = "Catherine";
-        matchList[2].lastname = "Burns";
-        matchList[2].email = "cburns40@ocdsb.ca";
+        //matchList.push(JSON.parse(JSON.stringify(selectedUser)));
+        //matchList[2].username = "Cab40";
+        //matchList[2].firstname = "Catherine";
+        //matchList[2].lastname = "Burns";
+        //matchList[2].email = "cburns40@ocdsb.ca";
 
         if(matchList.length == 0 || this.state.selectedIdx >= matchList.length){
             return(
@@ -81,6 +84,21 @@ export default class Matches extends React.Component{
     }
 
     componentDidMount(){ //queryForMatches
+        console.log("HEYYYY");
+        axios.get('http://localhost:8000/users/matches').then((response) => {
+            let matches = [];
+            let currentUser = JSON.parse(localStorage.getItem('userDetails'));
+            response.data.forEach((match) => {
+                if(match.username !== currentUser.username && !match.username.toLowerCase().includes('ray') && match.username !== 'rwu'){
+                    matches.push(match);
+                }
+            })
+            this.setState({
+                matches:matches
+            })
+        }).catch((err) => {
+            console.log(err)
+        })
     }
 
     render(){

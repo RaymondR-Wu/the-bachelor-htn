@@ -63,7 +63,7 @@ export default class Login extends React.Component{
             localStorage.setItem('userDetails', JSON.stringify(response.data));
             this.setState({
                 modalActive: false
-            }, () => {this.props.switchPage('profile')});
+            }, () => {this.props.switchPage('userProfile')});
         }).catch((err) => {
             alert('try again buddy');
         })
@@ -84,7 +84,7 @@ export default class Login extends React.Component{
             this.setState({
                 modalActive: false
             }, () => {
-                this.props.switchPage('userDetails');
+                this.props.switchPage('userProfile');
             });
         }).catch((err) => {
             console.log("BRUH");
@@ -146,11 +146,11 @@ export default class Login extends React.Component{
         } else{
             return (
                 <Form>
-                    <Form.Group controlId="formBasicEmail">
+                    <Form.Group controlId="formBasicEmail" className="margin-bottom">
                         <Form.Label>Email address</Form.Label>
                         <Form.Control value={this.state.email} onChange={(e) => this.handleChange('email', e)} type="email" placeholder = "Enter email" />
                     </Form.Group>
-                    <Form.Group controlId="formGroupPassword">
+                    <Form.Group controlId="formGroupPassword" className="margin-bottom">
                         <Form.Label>Password</Form.Label>
                         <Form.Control value={this.state.password} onChange={(e) => this.handleChange('password', e)} type="password" placeholder="Password" />
                     </Form.Group>
@@ -164,13 +164,13 @@ export default class Login extends React.Component{
         return(
             <div className="login-container">
                 <div className="login-header">
-                    <p className="title">The Pit</p>
+                    <p className="title">Hive</p>
                     <Button onClick={() => this.toggleModal(this._enums.Login)} variant="secondary">Log In</Button>
                 </div>
                 <div className="login-body">
-                    <p className="title">Get Your Bachelor Experience Today.</p>
+                    <p className="title" style={{color:"#2D3142"}}>Ten Versus One. May the Odds be Ever in Your Favour</p>
                     <br></br>
-                    <Button onClick={() => this.toggleModal(this._enums.Registration)} variant="primary"> I'm "single" and ready to mingle &#x1f445; .</Button>
+                    <Button onClick={() => this.toggleModal(this._enums.Registration)} variant="primary"> I'm single and ready to mingle.</Button>
                 </div>
                 <Modal centered show={this.state.modalActive} onHide={this.toggleModal}>
                     <Modal.Body>
@@ -189,11 +189,11 @@ export default class Login extends React.Component{
                                     onClick={this.state.activeView - 1 ? this.sendLogin : this.sendRegistration} 
                                     variant="primary"
                                 > 
-                                    Become a Bachelor 
+                                    {this.state.activeView-1 ? 'Enter The Hive' : 'Join The Hive' }
                                 </Button>
                                 <div style={{display: "flex", flexDirection:"row"}}>
-                                    <p>{this.state.activeView - 1 ? 'Not yet a Bachelor?': 'Already a Bachelor?'} </p>&nbsp;
-                                    <p onClick={this.toggleView} className="clickable-words"> {this.state.activeView -1 ? 'Register Now.' : 'Log In Here.'} </p>
+                                    <p>{this.state.activeView - 1 ? 'Not yet a member?': 'Already a member?'} </p>&nbsp;
+                                    <p onClick={this.toggleView} className="clickable-words"> {this.state.activeView -1 ? 'Register Now.' : 'Log In.'} </p>
                                 </div>
                             </div>
                         </div>

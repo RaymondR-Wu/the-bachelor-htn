@@ -12,6 +12,7 @@ export default class Questions extends React.Component{
             click : false,
             selected : "",
             activeChatIdx : 1,
+            numThings: 2
         }
     }
 
@@ -23,10 +24,12 @@ export default class Questions extends React.Component{
         })
         .then((res) => {
             console.log(res);
+            let numThings = localStorage.getItem('numThings');
             this.setState({
                 prevAsked: res.data["prevRounds"],
                 users : res.data['users'],
-                loading : false
+                loading : false,
+                numThings: numThings || 2
             })
         })
         .catch((err) => {
@@ -43,10 +46,12 @@ export default class Questions extends React.Component{
         })
         .then((res) => {
             console.log(res);
+            let numThings = localStorage.getItem('numThings');
             this.setState({
                 prevAsked: res.data["prevRounds"],
                 users : res.data['users'],
-                loading : false
+                loading : false,
+                numThings: numThings || 2
             })
         })
         .catch((err) => {
@@ -119,8 +124,14 @@ export default class Questions extends React.Component{
                     
                     <div style = {{display: 'inline-flex'}}>
                       {item.answers.map((answer) => {
+                        let imageSource = '';
+                        if(this.state.users[answer.username].profilepic && !this.state.users[answer.username].profilepic.includes('data:image')){
+                            imageSource = `data:image/jpeg;base64,${this.state.users[answer.username].profilepic}`
+                        } else{
+                            imageSource = this.state.users[answer.username].profilepic;
+                        }
                         return(
-                          <Popup trigger = {<img style = {{height: '50px', width: '50px', borderRadius: '50px', margin: "10px"}} src={`data:image/jpeg;base64,${this.state.users[answer.username].profilepic}`}/>}>
+                          <Popup trigger = {<img style = {{height: '50px', width: '50px', borderRadius: '50px', margin: "10px"}} src={imageSource} />} >
                             {answer.username}: {answer.answer}
                           </Popup>
                         )
@@ -197,37 +208,41 @@ export default class Questions extends React.Component{
                     </Menu>
                 </div>
 
-                <div style = {{position: 'relative', height: '20%', width: '100%', border: 'none', borderColor: 'orange', margin: '20px 20px 0 20px', alignItems: 'left', display: 'inline-flex'}}> 
-                    <div style = {{height: '100%', width: '60%', border: 'none', borderColor: 'blue', alignItems: 'stretch', marginRight: '5%', padding: '0px'}}>
-                      <div style = {{position: 'relative', float: 'left', margin: '10px', fontSize: '20px', display: 'flex', flex:'1', flexDirection: 'row', justifyContent: 'space-between'}}>
-                        <div style = {{float: 'left'}}>
-                          What else do you want to know?
+                {this.state.numThings == 1 ? <Image src="Congrats4.png" style={{display: "flex", flex: 1}}/> :
+                  <>
+                    <div style={{ position: 'relative', height: '20%', width: '100%', border: 'none', margin: '20px 20px 0 20px', alignItems: 'left', display: 'inline-flex' }}>
+                      <div style={{ height: '100%', width: '60%', border: 'none', borderColor: 'blue', alignItems: 'stretch', marginRight: '5%', padding: '0px' }}>
+                        <div style={{ position: 'relative', float: 'left', margin: '10px', fontSize: '20px', display: 'flex', flex: '1', flexDirection: 'row', justifyContent: 'space-between' }}>
+                          <div style={{ float: 'left' }}>
+                            What else do you want to know?
+                            </div>
+                        </div>
+
+                        <Form style={{ marginTop: '10px' }}>
+                          <TextArea onChange={(e) => this.onChange(e)} rows={6} style={{ height: '50%' }} placeholder='Ask anything you want' />
+                        </Form>
+
+                        <Button onClick={() => this.onQuestionSubmit()} style={{ float: 'left', marginTop: '10px' }}>
+                          Submit Question
+                          </Button>
+                      </div>
+
+                      <div style={{ width: '50%', height: '100%', alignItems: 'stretch', padding: '0px', border: 'none' }}>
+                        <div style={{ height: '10px', float: 'left', margin: "10px 0px 10px 0px", paddingLeft: '10px', fontSize: '20px' }}>
+                          Your previous questions and answers
+                          </div>
+
+                        <div style={{ height: '80%', width: '100%', float: 'left', clear: 'both', textAlign: 'left', margin: '10px 0px 0px', padding: '0px' }}>
+                          {this.questionsList()}
+
                         </div>
                       </div>
-                      
-                      <Form style = {{marginTop: '10px'}}>
-                        <TextArea onChange = {(e) => this.onChange(e)}rows = {6} style = {{height: '50%'}} placeholder='Ask anything you want' />
-                      </Form>
 
-                      <Button onClick = {() => this.onQuestionSubmit()} style = {{float: 'left', marginTop : '10px'}}>
-                        Submit Question
-                      </Button>
+
                     </div>
-
-                    <div style = {{width: '50%', height: '100%', alignItems: 'stretch', padding: '0px', border: 'none'}}>
-                      <div style = {{height: '10px', float: 'left', margin : "10px 0px 10px 0px", paddingLeft: '10px', fontSize: '20px'}}>
-                        Your previous questions and answers
-                      </div>
-
-                      <div style = {{height: '80%', width: '100%', float: 'left', clear: 'both', textAlign: 'left', margin: '10px 0px 0px', padding: '0px'}}>
-                        {this.questionsList()}
-                    
-                      </div>
-                    </div>
-                    
-                    
-                </div>
-                <Button disabled = {false} onClick = {() => this.clickedEliminate()} labelPosition = "right" icon = "right chevron" style = {{position: 'absolute', bottom: '5%', right: '5%'}} content = "Eliminate"/>
+                    <Button disabled={false} onClick={() => this.clickedEliminate()} labelPosition="right" icon="right chevron" style={{ position: 'absolute', bottom: '5%', right: '5%' }} content="Eliminate" />
+                  </>
+                }
             </div>
         )
     }
