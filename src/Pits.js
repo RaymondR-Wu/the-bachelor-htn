@@ -124,12 +124,29 @@ export default class Pits extends React.Component{
                             </div>
                             
                         </Menu.Item>
+                        <Menu.Item style = {{height: '10vh', borderColor: 'black', border: 'none'}} >
+                            <div style = {{textAlign: 'left'}}>
+                                +
+                            </div>
+                            Browse Open Pits
+                        </Menu.Item>
+                        <Menu.Item style = {{height: '10vh', borderColor: 'black', border: 'none'}} >
+                            <div style = {{textAlign: 'left'}}>
+                                +
+                            </div>
+                            Create Your Own Pit
+                        </Menu.Item>
                     </Menu>
                 </div>
+<<<<<<< HEAD
 
                 <div style = {{position: 'relative', width: '100%', border: 'none', borderColor: 'orange', marginTop: '10px'}}> 
                     <Button onClick = {() => this.clickedBack()} labelPosition = "left" icon="left chevron" content = "back" style = {{left: '0px', position: "absolute", margin: "0px 0px 0px 30px"}}/>
                     {this.imageList()} 
+=======
+                <div style = {{position: 'relative', width: '100%', border: 'none', borderColor: 'orange', marginTop: '10px'}}>
+                    {this.imageList()}
+>>>>>>> b392d550890e168b02e71029339d094bf11d7ceb
                     <div style = {{position: 'relative', top: '23vh', left: '50%', height: '10%', width: '10%', alignItems: 'center', textAlign: 'center', color: 'white'}}>
                         WHO SHALL BE ELIMINATED?
                         <Button onClick = {() => this.onSubmit()} style = {{marginTop: "2vh", height: '10vh', width: '10vh', borderRadius: '5vh', textAlign: 'center', justifyContent: 'center', alignItems: 'center', fontSize: '90%', padding: '0px'}}>
