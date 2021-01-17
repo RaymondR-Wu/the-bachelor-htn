@@ -128,20 +128,20 @@ export default class Pits extends React.Component{
                     <Menu vertical style = {{border: 'none', borderColor: 'yellow', width: '100%', flex: 'column', margin: '10px auto'}}>
                         <Menu.Item onClick = {() => {this.clickedChat(0)}} style = {{height: '10vh', borderColor: 'black', border: 'none'}} active = {this.state.activeChatIdx === 0}>
                             <div style = {{textAlign: 'left'}}>
-                                Pit 1 &#128521;
+                                Hive 1 &#128521;
                             </div>
                             <div style = {{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
                                 <div style = {{left: '0px'}}> W/ Channing Tatum, Zac Efron, ... </div>
                                 <div style = {{right: '0px'}}> Mr.Tatum: Hey </div>
                             </div>
-                        
+
                         </Menu.Item>
 
                         <Menu.Item onClick = {() => {this.clickedChat(1)}} style = {{height: '10vh', borderColor: 'black', border: 'none'}} active = {this.state.activeChatIdx === 1} >
                             <div style = {{textAlign: 'left'}}>
-                                Pit 2
+                                Hive 2
                             </div>
-                            
+
                             <div style = {{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
                                 <div style = {{left: '0px'}}> W/ Sven, Shrek, Olaf... </div>
                                 <div style = {{right: '0px'}}> Olaf: Wait till summer </div>
@@ -150,25 +150,25 @@ export default class Pits extends React.Component{
 
                         <Menu.Item onClick = {() => {this.clickedChat(2)}} style = {{height: '10vh', borderColor: 'black', border: 'none'}} active = {this.state.activeChatIdx === 2}>
                             <div style = {{textAlign: 'left'}}>
-                                Pit 3
+                                Hive 3
                             </div>
                             <div style = {{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
                                 <div style = {{left: '0px'}}> W/ Dwight Schrute, Janice, ... </div>
                                 <div style = {{right: '0px'}}> Janice: O MY  </div>
                             </div>
-                            
+
                         </Menu.Item>
                         <Menu.Item style = {{height: '10vh', borderColor: 'black', border: 'none'}} >
                             <div style = {{textAlign: 'left'}}>
                                 +
                             </div>
-                            Browse Open Pits
+                            Browse Open Hives
                         </Menu.Item>
                         <Menu.Item style = {{height: '10vh', borderColor: 'black', border: 'none'}} >
                             <div style = {{textAlign: 'left'}}>
                                 +
                             </div>
-                            Create Your Own Pit
+                            Create Your Own Hive
                         </Menu.Item>
                     </Menu>
 
