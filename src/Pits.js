@@ -39,6 +39,16 @@ export default class Pits extends React.Component{
         })
     }
 
+    clickedChat = (idx) => {
+        this.setState({
+            activeChatIdx : idx
+        })
+    }
+
+    clickedBack = () => {
+        this.props.switchPage('questions')
+    }
+
     onSubmit = () => {
         axios({
             method: 'post',
@@ -63,7 +73,7 @@ export default class Pits extends React.Component{
                 <List.Item>
                   {/* <Image style = {{height: '150px', width: '150px'}} src={`data:image/jpeg;base64,${item.photos}`} /> */}
                   
-                  <img onClick={() => this.clickedImage(item)} style={{position: 'absolute', height: '15vh', width: '15vh', borderRadius: '15vh', borderWidth: '2px', borderStyle: this.state.selected === item.username ? 'solid' : 'none', borderColor: 'red', top: '30vh', left: '50%', transform: `rotate(${360*idx/7}deg) translate(${30}vh) rotate(${-360*idx/7}deg)`}} src={`data:image/jpeg;base64,${item.photos}`} />
+                  <img onClick={() => this.clickedImage(item)} style={{position: 'absolute', height: '15vh', width: '15vh', borderRadius: '15vh', borderWidth: '2px', borderStyle: this.state.selected === item.username ? 'solid' : 'none', borderColor: 'red', top: '30vh', left: '50%', transform: `rotate(${360*idx/7}deg) translate(${30}vh) rotate(${-360*idx/7}deg)`}} src={`data:image/jpeg;base64,${item.profilepic}`} />
                 </List.Item>
               )
             })}
@@ -74,42 +84,54 @@ export default class Pits extends React.Component{
     render(){
         if(!this.props.active) return null;
         return(
-            <div style = {{display: "flex", flex: "1", width: "100vw", "flexDirection": "row", "background-color": "#516620", border: 'none', borderColor: 'red'}}>
-                <div style = {{width: '40%', backgroundColor: "#E5E5E5", border: 'solid', borderColor: 'violet', margin: '0px', paddingTop: '10px'}}>
-                    <div>
+            <div style = {{display: "flex", flex: "1", width: "100vw", "flexDirection": "row", "background-color": "#524b00", border: 'none', borderColor: 'red'}}>
+                <div style = {{width: '40%', backgroundColor: "#E5E5E5", border: 'solid', borderColor: 'violet', margin: '0px', paddingTop: '20px'}}>
+                    <div style = {{fontSize: '30px'}}>
                         Chats
                     </div>
-                    <Search style = {{marginTop: '10px'}} open = {false}/>
+                    <Search style = {{marginTop: '20px'}} open = {false}/>
 
-                    <Menu vertical style = {{border: 'solid', borderColor: 'yellow', width: '100%', flex: 'column', margin: '10px auto'}}>
-                        <Menu.Item style = {{height: '10vh', borderColor: 'black', border: 'none'}}>
+                    <Menu vertical style = {{border: 'none', borderColor: 'yellow', width: '100%', flex: 'column', margin: '10px auto'}}>
+                        <Menu.Item onClick = {() => {this.clickedChat(0)}} style = {{height: '10vh', borderColor: 'black', border: 'none'}} active = {this.state.activeChatIdx === 0}>
                             <div style = {{textAlign: 'left'}}>
-                                Pit 1
+                                Pit 1 &#128521;
                             </div>
-                            W/ Channing Tatum, Zac Efron, ...
+                            <div style = {{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+                                <div style = {{left: '0px'}}> W/ Channing Tatum, Zac Efron, ... </div>
+                                <div style = {{right: '0px'}}> Mr.Tatum: Hey </div>
+                            </div>
+                        
                         </Menu.Item>
 
-                        <Menu.Item style = {{height: '10vh', borderColor: 'black', border: 'none'}} active >
+                        <Menu.Item onClick = {() => {this.clickedChat(1)}} style = {{height: '10vh', borderColor: 'black', border: 'none'}} active = {this.state.activeChatIdx === 1} >
                             <div style = {{textAlign: 'left'}}>
                                 Pit 2
                             </div>
-                            W/ Olaf, Sven, Shrek...
+                            
+                            <div style = {{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+                                <div style = {{left: '0px'}}> W/ Sven, Shrek, Olaf... </div>
+                                <div style = {{right: '0px'}}> Olaf: Wait till summer </div>
+                            </div>
                         </Menu.Item>
 
-                        <Menu.Item style = {{height: '10vh', borderColor: 'black', border: 'none'}} >
+                        <Menu.Item onClick = {() => {this.clickedChat(2)}} style = {{height: '10vh', borderColor: 'black', border: 'none'}} active = {this.state.activeChatIdx === 2}>
                             <div style = {{textAlign: 'left'}}>
                                 Pit 3
                             </div>
-                            W/ Dwight Schrute, Janice, ...
+                            <div style = {{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+                                <div style = {{left: '0px'}}> W/ Dwight Schrute, Janice, ... </div>
+                                <div style = {{right: '0px'}}> Janice: O MY  </div>
+                            </div>
+                            
                         </Menu.Item>
                     </Menu>
-
-
                 </div>
+
                 <div style = {{position: 'relative', width: '100%', border: 'none', borderColor: 'orange', marginTop: '10px'}}> 
-                    {this.imageList()}
+                    <Button onClick = {() => this.clickedBack()} labelPosition = "left" icon="left chevron" content = "back" style = {{left: '0px', position: "absolute", margin: "0px 0px 0px 30px"}}/>
+                    {this.imageList()} 
                     <div style = {{position: 'relative', top: '23vh', left: '50%', height: '10%', width: '10%', alignItems: 'center', textAlign: 'center', color: 'white'}}>
-                        WHO WILL BE ELIMINATED???
+                        WHO SHALL BE ELIMINATED?
                         <Button onClick = {() => this.onSubmit()} style = {{marginTop: "2vh", height: '10vh', width: '10vh', borderRadius: '5vh', textAlign: 'center', justifyContent: 'center', alignItems: 'center', fontSize: '90%', padding: '0px'}}>
                             Submit
                         </Button>
