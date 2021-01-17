@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { url } from '../config';
-import { List } from 'semantic-ui-react';
+import { List, Image} from 'semantic-ui-react';
+//import {Image} from 'react-bootstrap';
 
 export class Elimination extends Component {
   constructor(props) {
@@ -32,21 +33,22 @@ export class Elimination extends Component {
 
   imageList = () => {
     console.log(this.state.imageData.length);
+    const radius = 30;
     return (
-      <>
-        {this.state.imageData.map(item => {
-          //console.log(item.name);
+      <List horizontal>
+        {this.state.imageData.map((item, idx) => {
+          console.log(idx, 2*Math.PI*idx/5);
           return (
-            <>
-              <img onClick={() => console.log("YO")} style={{ position: 'relative', height: '200px', width: '200px', clipPath: "circle(100px)"}} src={`data:image/jpeg;base64,${item.photos}`} />
-            </>
+            <List.Item>
+              <Image style = {{height: '150px', width: '150px'}} src={`data:image/jpeg;base64,${item.photos}`} />
+
+              {/* <img onClick={() => console.log("YO2")} style={{ position: 'absolute', clipPath: "circle(80px)", top: `calc(${50}% + ${radius*Math.sin(2*Math.PI*idx/5)}vh)`, left: `calc(${50}% + ${radius*Math.cos(2*Math.PI*idx/5)}vh)`, transform: "translate(-50%, -50%)"}} src={`data:image/jpeg;base64,${item.photos}`} /> */}
+            </List.Item>
           )
         })}
-      </>
+      </List>
     )
   }
-
-
 
   render() {
     if (!this.props.active) return null;
@@ -57,6 +59,9 @@ export class Elimination extends Component {
         </div>
         <div style={{ flex:'1 1 auto', backgroundColor: 'black' }}>
           {this.imageList()}
+          <div style = {{color: 'white', position : 'absolute', left: '45%', top: '48%'}}>
+            Who is eliminated?
+          </div>
         </div>
       </div>
     )
