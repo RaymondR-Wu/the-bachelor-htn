@@ -2,7 +2,6 @@
     width: 100vw;
     height: 80vh;
     position: relative;
-    background: radial-gradient(50% 50% at 50% 50%, #FE6161 0%, rgba(254, 97, 97, 0) 100%);
     padding: 1rem;
     display: flex;
     justify-content: center;

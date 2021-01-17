@@ -16,7 +16,7 @@ export default class ProfilePage extends React.Component{
             birthday: '',
             images: [null, null, null],
             feature: '',
-            editable: false,
+            editable: true,
             profilePic: null,
             editor: false,
             pfpEditOpen: false,
@@ -26,7 +26,7 @@ export default class ProfilePage extends React.Component{
             newImage: '',
             editingProfileDetails: false,
             editingImages: false,
-            editingBio: false
+            editingBio: false,
         }
     }
 
@@ -58,33 +58,36 @@ export default class ProfilePage extends React.Component{
     }
 
     componentDidUpdate(prevProps){
-        if(prevProps.active !== this.props.active && this.props.active){
-            if(this.props.userProfile){
-                console.log("edit off")
+        if(prevProps.active !== this.props.active && this.props.active || (this.props.userDetails && prevProps.userDetails && this.props.userDetails.username !== prevProps.userDetails.username)){
+            let userProfile = {};
+            if(this.props.userDetails){
+                userProfile = this.props.userDetails
+                userProfile.editable = false;
             } else{
-                let userProfile = JSON.parse(localStorage.getItem('userDetails'));
-                userProfile.name = userProfile.firstname + ' ' + userProfile.lastname;
-                userProfile.newImage = userProfile.profilepic;
-
-                userProfile.images = [];
-
-                for (let i = 0; i < userProfile.gallerypics.length; i++) {
-                    if (userProfile.gallerypics[i] && userProfile.gallerypics[i + 1] && userProfile.gallerypics[i] !== 'null') {
-                        userProfile.images.push(userProfile.gallerypics[i] + ',' + userProfile.gallerypics[i + 1]);
-                        i++;
-                    } else {
-                        userProfile.images.push(userProfile.gallerypics[i]);
-                    }
-                }
-
-                for (let i = userProfile.images.length; i < 3; i++) {
-                    userProfile.images.push(null);
-                }
-
-                this.setState({
-                    ...userProfile
-                })
+                userProfile = JSON.parse(localStorage.getItem('userDetails'));
             }
+
+            userProfile.name = userProfile.firstname + ' ' + userProfile.lastname;
+            userProfile.newImage = userProfile.profilepic;
+
+            userProfile.images = [];
+
+            for (let i = 0; i < userProfile.gallerypics.length; i++) {
+                if (userProfile.gallerypics[i] && userProfile.gallerypics[i + 1] && userProfile.gallerypics[i] !== 'null') {
+                    userProfile.images.push(userProfile.gallerypics[i] + ',' + userProfile.gallerypics[i + 1]);
+                    i++;
+                } else {
+                    userProfile.images.push(userProfile.gallerypics[i]);
+                }
+            }
+
+            for (let i = userProfile.images.length; i < 3; i++) {
+                userProfile.images.push(null);
+            }
+
+            this.setState({
+                ...userProfile
+            })
         }
     }
 
@@ -98,32 +101,35 @@ export default class ProfilePage extends React.Component{
             return null;
         } 
 
-        if(this.props.userProfile){
-            console.log("edit off")
+        let userProfile = {};
+        if(this.props.userDetails){
+            userProfile = this.props.userDetails;
+            userProfile.editable = false;
         } else{
-            let userProfile = JSON.parse(localStorage.getItem('userDetails'));
-            userProfile.name = userProfile.firstname + ' ' + userProfile.lastname;
-            userProfile.images = [];
-
-            for(let i = 0; i < userProfile.gallerypics.length;i++){
-                if(userProfile.gallerypics[i] && userProfile.gallerypics[i+1] && userProfile.gallerypics[i] !== 'null') {
-                    userProfile.images.push(userProfile.gallerypics[i] + ',' + userProfile.gallerypics[i+1]);
-                    i++;
-                } else{
-                    userProfile.images.push(userProfile.gallerypics[i]);
-                }
-            }
-
-            for(let i = userProfile.images.length;i < 3;i++){
-                userProfile.images.push(null);
-            }
-            
-            userProfile.newImage = userProfile.profilepic;
-
-            this.setState({
-                ...userProfile
-            })
+            userProfile = JSON.parse(localStorage.getItem('userDetails'));
         }
+
+        userProfile.name = userProfile.firstname + ' ' + userProfile.lastname;
+        userProfile.images = [];
+
+        for(let i = 0; i < userProfile.gallerypics.length;i++){
+            if(userProfile.gallerypics[i] && userProfile.gallerypics[i+1] && userProfile.gallerypics[i] !== 'null') {
+                userProfile.images.push(userProfile.gallerypics[i] + ',' + userProfile.gallerypics[i+1]);
+                i++;
+            } else{
+                userProfile.images.push(userProfile.gallerypics[i]);
+            }
+        }
+
+        for(let i = userProfile.images.length;i < 3;i++){
+            userProfile.images.push(null);
+        }
+        
+        userProfile.newImage = userProfile.profilepic;
+
+        this.setState({
+            ...userProfile
+        })
     }
 
     getProfilePic = () => {
@@ -242,7 +248,7 @@ export default class ProfilePage extends React.Component{
     render(){
         if(!this.props.active) return null;
         return(
-            <div className="profile-body">
+            <div className="profile-body" style={this.props.userDetails ? {width:"100%", paddingTop:"5rem"} : {}}>
                 <div className="profile-info">
                     <div className="profile-border">
                         {this.state.newImage ? 
@@ -264,7 +270,7 @@ export default class ProfilePage extends React.Component{
                     </div>
                     <div style={{display:"flex", alignItems:"flex-end", flexDirection:"row", padding:"1rem"}}>
                         <p className="profile-name no-margin">{this.state.name}</p>
-                        {this.state.editingProfileDetails?
+                        {!this.state.editable ? null : this.state.editingProfileDetails?
                             <p className="profile-save no-margin" onClick={this.sendProfileDetails}>Save</p> :
                             <svg onClick={() => {this.setState({editingProfileDetails: true})}} style={{ transform: "scale(2) translateX(10px) translateY(-8px)" }} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
                                 <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
@@ -283,7 +289,7 @@ export default class ProfilePage extends React.Component{
                     <div className="carousel-container">
                         <div style={{display:"flex", alignItems:"flex-end", flexDirection:"row", padding:"1rem"}}>
                             <p className="profile-name medium-text no-margin">View Pictures</p>
-                            {this.state.editingImages ?
+                            {!this.state.editable ? null : this.state.editingImages ?
                                 <p className="profile-save no-margin" onClick={this.sendProfileDetails}>Save</p> :
                                 <svg onClick={() => {this.setState({editingImages: true})}} style={{ transform: "scale(1.5) translateX(10px) translateY(-6px)" }} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
                                     <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
@@ -294,7 +300,7 @@ export default class ProfilePage extends React.Component{
                         {this.renderPreview()}
                         <div style={{display:"flex", alignItems:"flex-end", flexDirection:"row", padding:"1rem"}}>
                             <p className="profile-name medium-text no-margin">View Bio</p>
-                            {this.state.editingBio?
+                            {!this.state.editable ? null : this.state.editingBio?
                                 <p className="profile-save no-margin" onClick={this.sendProfileDetails}>Save</p> :
                                 <svg onClick={() => {this.setState({editingBio: true})}} style={{ transform: "scale(1.5) translateX(10px) translateY(-6px)" }} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
                                     <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />

@@ -3,6 +3,7 @@ import {Image, Carousel} from 'react-bootstrap';
 import axios from 'axios';
 import { url } from './config';
 import { Header, List, Button, Search, Menu} from 'semantic-ui-react';
+import AnswerPage from './Components/AnswerPage';
 
 export default class Pits extends React.Component{
     constructor(props){
@@ -74,10 +75,10 @@ export default class Pits extends React.Component{
     render(){
         if(!this.props.active) return null;
         return(
-            <div style = {{display: "flex", flex: "1", width: "100vw", "flexDirection": "row", "background-color": "#516620", border: 'none', borderColor: 'red'}}>
+            <div style = {{display: "flex", flex: "1", width: "100vw", "flexDirection": "row", "background-color": "#F5F5F5", border: 'none', borderColor: 'red'}}>
                 <div style = {{width: '40%', backgroundColor: "#E5E5E5", border: 'solid', borderColor: 'violet', margin: '0px', paddingTop: '10px'}}>
                     <div>
-                        Chats
+                        Groups 
                     </div>
                     <Search style = {{marginTop: '10px'}} open = {false}/>
 
@@ -116,9 +117,10 @@ export default class Pits extends React.Component{
                         </Menu.Item>
                     </Menu>
 
-
                 </div>
-                <div style = {{position: 'relative', width: '100%', border: 'none', borderColor: 'orange', marginTop: '10px'}}>
+
+                <AnswerPage  />
+                {/*<div style = {{position: 'relative', width: '100%', border: 'none', borderColor: 'orange', marginTop: '10px'}}>
                     {this.imageList()}
                     <div style = {{position: 'relative', top: '23vh', left: '50%', height: '10%', width: '10%', alignItems: 'center', textAlign: 'center', color: 'white'}}>
                         WHO WILL BE ELIMINATED???
@@ -126,7 +128,7 @@ export default class Pits extends React.Component{
                             Submit
                         </Button>
                     </div>
-                </div>
+                </div>*/}
             </div>
         )
     }
