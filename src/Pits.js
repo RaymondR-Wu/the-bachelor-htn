@@ -17,7 +17,7 @@ export default class Pits extends React.Component{
     }
 
     componentDidMount(){
-        console.log("YO")
+        console.log("YO2")
         axios({
             method: 'get',
             url: "http://localhost:8000/users"
@@ -25,13 +25,33 @@ export default class Pits extends React.Component{
         .then((res) => {
         console.log(res);
         this.setState({
-            imageData: res.data["rows"],
+            imageData: res.data["rows"].filter(user => !user.eliminated),
             loading : false
         })
         })
         .catch((err) => {
         console.log(err, err.message, "BAD12763");
         })
+    }
+
+    componentDidUpdate(prevProps){
+        if(prevProps !== this.props){
+          console.log("SIRRR");
+          axios({
+            method: 'get',
+            url: "http://localhost:8000/users"
+            })
+            .then((res) => {
+            console.log(res);
+            this.setState({
+                imageData: res.data["rows"].filter(user => !user.eliminated),
+                loading : false
+            })
+            })
+            .catch((err) => {
+            console.log(err, err.message, "BAD12763");
+            })
+      }
     }
 
     clickedImage = (item) => {
@@ -141,26 +161,17 @@ export default class Pits extends React.Component{
 
                 </div>
 
-                <AnswerPage  />
-                {/*<div style = {{position: 'relative', width: '100%', border: 'none', borderColor: 'orange', marginTop: '10px'}}>
-=======
-                </div>
-
+                {/* <AnswerPage  /> */}
                 <div style = {{position: 'relative', width: '100%', border: 'none', borderColor: 'orange', marginTop: '10px'}}> 
                     <Button onClick = {() => this.clickedBack()} labelPosition = "left" icon="left chevron" content = "Back" style = {{left: '0px', position: "absolute", margin: "0px 0px 0px 30px"}}/>
                     {this.imageList()} 
-                <div style = {{position: 'relative', width: '100%', border: 'none', borderColor: 'orange', marginTop: '10px'}}>
-                    {this.imageList()}
->>>>>>> b392d550890e168b02e71029339d094bf11d7ceb
-=======
->>>>>>> Stashed changes
                     <div style = {{position: 'relative', top: '23vh', left: '50%', height: '10%', width: '10%', alignItems: 'center', textAlign: 'center', color: 'white'}}>
                         WHO SHALL BE ELIMINATED?
                         <Button onClick = {() => this.onSubmit()} style = {{marginTop: "2vh", height: '10vh', width: '10vh', borderRadius: '5vh', textAlign: 'center', justifyContent: 'center', alignItems: 'center', fontSize: '90%', padding: '0px'}}>
                             Submit
                         </Button>
                     </div>
-                </div>*/}
+                </div>
             </div>
         )
     }

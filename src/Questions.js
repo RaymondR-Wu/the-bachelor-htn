@@ -34,6 +34,27 @@ export default class Questions extends React.Component{
         })
     }
 
+    componentDidUpdate(prevProps){
+      if(prevProps !== this.props){
+        console.log("SIRRR");
+        axios({
+          method: 'get',
+          url: "http://localhost:8000/users/prevRounds"
+        })
+        .then((res) => {
+            console.log(res);
+            this.setState({
+                prevAsked: res.data["prevRounds"],
+                users : res.data['users'],
+                loading : false
+            })
+        })
+        .catch((err) => {
+        console.log(err, err.message, "BAD12763");
+        })
+      }
+    }
+
     clickedChat = (idx) => {
         this.setState({
             activeChatIdx : idx
@@ -100,7 +121,7 @@ export default class Questions extends React.Component{
                       {item.answers.map((answer) => {
                         return(
                           <Popup trigger = {<img style = {{height: '50px', width: '50px', borderRadius: '50px', margin: "10px"}} src={`data:image/jpeg;base64,${this.state.users[answer.username].profilepic}`}/>}>
-                            {answer.answer}
+                            {answer.username}: {answer.answer}
                           </Popup>
                         )
                       })}
@@ -206,7 +227,7 @@ export default class Questions extends React.Component{
                     
                     
                 </div>
-                <Button disabled = {true} onClick = {() => this.clickedEliminate()} labelPosition = "right" icon = "right chevron" style = {{position: 'absolute', bottom: '5%', right: '5%'}} content = "Eliminate"/>
+                <Button disabled = {false} onClick = {() => this.clickedEliminate()} labelPosition = "right" icon = "right chevron" style = {{position: 'absolute', bottom: '5%', right: '5%'}} content = "Eliminate"/>
             </div>
         )
     }

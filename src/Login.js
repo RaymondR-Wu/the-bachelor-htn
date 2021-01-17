@@ -170,7 +170,7 @@ export default class Login extends React.Component{
                 <div className="login-body">
                     <p className="title">Get Your Bachelor Experience Today.</p>
                     <br></br>
-                    <Button onClick={() => this.toggleModal(this._enums.Registration)} variant="primary"> I'm "single" and ready to mingle.</Button>
+                    <Button onClick={() => this.toggleModal(this._enums.Registration)} variant="primary"> I'm "single" and ready to mingle &#x1f445; .</Button>
                 </div>
                 <Modal centered show={this.state.modalActive} onHide={this.toggleModal}>
                     <Modal.Body>
