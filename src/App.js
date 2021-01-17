@@ -6,9 +6,9 @@ import { Button } from 'react-bootstrap';
 import Login from './Login';
 import Header from './Components/Header';
 import ProfilePage from './UserProfile';
-import Elimination from './Components/Elimination';
 import Pits from './Pits';
 import Matches from './Matches';
+import Questions from './Questions';
 
 class App extends React.Component{
 
@@ -16,6 +16,7 @@ class App extends React.Component{
         super(props);
         this.state = {
             activePage: 'pits',
+            activePage: 'questions'
         }
     }
 
@@ -41,6 +42,7 @@ class App extends React.Component{
               <Elimination active={this.state.activePage === 'elimination'} switchPage={this.switchPage} />
               <Matches active={this.state.activePage === 'matches'} switchPage={this.switchPage} />
               <Pits active = {this.state.activePage === 'pits'} switchPage={this.switchPage}/>
+              <Questions active = {this.state.activePage === 'questions'} switchPage={this.switchPage}/>
         </div>
       );
     }
