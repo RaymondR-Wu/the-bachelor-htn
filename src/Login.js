@@ -18,7 +18,9 @@ export default class Login extends React.Component{
             password: '',
             confirmPassword: '',
             username: '',
-            phone: ''
+            phone: '',
+            birthday: '',
+            feature: ''
         }
     }
 
@@ -48,7 +50,9 @@ export default class Login extends React.Component{
             'password': this.state.password,
             'username': this.state.username,
             'phone': this.state.phone,
-            'email': this.state.email
+            'email': this.state.email,
+            'birthday': this.state.birthday,
+            'feature': this.state.feature
         }
         
         axios({
@@ -80,7 +84,7 @@ export default class Login extends React.Component{
             this.setState({
                 modalActive: false
             }, () => {
-                this.props.switchPage('userProfile');
+                this.props.switchPage('userDetails');
             });
         }).catch((err) => {
             console.log("BRUH");
@@ -93,37 +97,48 @@ export default class Login extends React.Component{
             return(
                 <Form>
                     <Form.Row>
-                        <Form.Group as={Col} controlId="formFirstName">
+                        <Form.Group as={Col} controlId="formFirstName" className="margin-bottom">
                             <Form.Label>First Name</Form.Label>
                             <Form.Control value={this.state.firstName} onChange={(e) => this.handleChange('firstName', e)} placeholder = "Enter name" />
                         </Form.Group>
-                        <Form.Group as={Col} controlId="formLastName">
+                        <Form.Group as={Col} controlId="formLastName" className="margin-bottom">
                             <Form.Label>Last Name</Form.Label>
                             <Form.Control value={this.state.lastName} onChange={(e) => this.handleChange('lastName', e)} placeholder = "Enter name" />
                         </Form.Group>
                     </Form.Row>
 
-                    <Form.Group controlId="formBasicEmail">
+                    <Form.Group controlId="formBasicEmail" className="margin-bottom">
                         <Form.Label>Email address</Form.Label>
                         <Form.Control value={this.state.email} onChange={(e) => this.handleChange('email', e)} type="email" placeholder = "Enter email" />
                     </Form.Group>
-                    <Form.Group controlId="formGroupPassword">
+                    <Form.Group controlId="formGroupPassword" className="margin-bottom">
                         <Form.Label>Password</Form.Label>
                         <Form.Control value={this.state.password} onChange={(e) => this.handleChange('password', e)} type="password" placeholder="Password" />
                     </Form.Group>
-                    <Form.Group controlId="formGroupConfirmPassword">
+                    <Form.Group controlId="formGroupConfirmPassword" className="margin-bottom">
                         <Form.Label>Confirm Password</Form.Label>
                         <Form.Control value={this.state.confirmPassword} onChange={(e) => this.handleChange('confirmPassword', e)} type="password" placeholder="Confirm Password" />
                     </Form.Group>
 
                     <Form.Row>
-                        <Form.Group as={Col} controlId="formUsername">
+                        <Form.Group as={Col} controlId="formUsername" className="margin-bottom">
                             <Form.Label>Username</Form.Label>
                             <Form.Control value={this.state.username} onChange={(e) => this.handleChange('username', e)} placeholder = "Username" />
                         </Form.Group>
-                        <Form.Group as={Col} controlId="formPhone">
+                        <Form.Group as={Col} controlId="formPhone" className="margin-bottom">
                             <Form.Label>Phone Number</Form.Label>
                             <Form.Control value={this.state.phone} onChange={(e) => this.handleChange('phone', e)} placeholder = "(613)-123-4567" />
+                        </Form.Group>
+                    </Form.Row>
+
+                    <Form.Row>
+                        <Form.Group as={Col} controlId="formUsername" className="margin-bottom">
+                            <Form.Label>Birthday</Form.Label>
+                            <Form.Control value={this.state.birthday} onChange={(e) => this.handleChange('birthday', e)} placeholder = "dd/mm/yyyy" />
+                        </Form.Group>
+                        <Form.Group as={Col} controlId="formPhone" className="margin-bottom">
+                            <Form.Label>Best Feature</Form.Label>
+                            <Form.Control value={this.state.feature} onChange={(e) => this.handleChange('feature', e)} placeholder = "Pretty Eyes" />
                         </Form.Group>
                     </Form.Row>
                 </Form>
@@ -158,7 +173,7 @@ export default class Login extends React.Component{
                     <Button onClick={() => this.toggleModal(this._enums.Registration)} variant="primary"> I'm "single" and ready to mingle.</Button>
                 </div>
                 <Modal centered show={this.state.modalActive} onHide={this.toggleModal}>
-                    <Modal.Body centered>
+                    <Modal.Body>
                         <div style={{padding:"2rem"}}>
                             <div style={{display:"flex", justifyContent: "center"}}>
                                 <p className="title" style={{fontSize:"2rem"}}>

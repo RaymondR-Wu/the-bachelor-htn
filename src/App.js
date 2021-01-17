@@ -7,6 +7,8 @@ import Login from './Login';
 import Header from './Components/Header';
 import ProfilePage from './UserProfile';
 import Elimination from './Components/Elimination';
+import AnswerPage from './Components/AnswerPage';
+import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css';
 
 class App extends React.Component{
 
@@ -34,9 +36,10 @@ class App extends React.Component{
       return (
         <div className="App" style = {{width: '100%', height: '100%'}}>
               <Header activePage={this.state.activePage} switchPage={this.switchPage}/>
-              <Login active={this.state.activePage === 'login'} switchPage={this.switchPage} />
-              <ProfilePage active={this.state.activePage === 'userProfile'} switchPage={this.switchPage} />
-              <Elimination active={this.state.activePage === 'elimination'} switchPage={this.switchPage} />
+              <Elimination />
+              {/*<Login active={this.state.activePage === 'login'} switchPage={this.switchPage} />
+                <ProfilePage active={this.state.activePage === 'userProfile'} switchPage={this.switchPage} />
+                <Elimination active={this.state.activePage === 'elimination'} switchPage={this.switchPage} />*/}
         </div>
       );
     }

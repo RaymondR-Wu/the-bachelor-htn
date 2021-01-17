@@ -51,6 +51,15 @@
     color: #484F6C;
 }
 
+.profile-overview-chooseText {
+    cursor: pointer;
+    color: #484F6C;
+}
+
+.profile-overview-chooseText:hover {
+    text-decoration: underline;
+}
+
 .profile-image {
     width: 15rem;
     height: 15rem;
@@ -58,6 +67,11 @@
 
 .medium-text {
     font-size: 2rem !important;
+    line-height: 2rem !important;
+}
+
+.no-margin {
+    margin-bottom: 0rem !important;
 }
 
 .profile-details {
@@ -77,8 +91,6 @@
 .carousel-control-next-icon{
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='black' width='8' height='8' viewBox='0 0 8 8'%3e%3cpath d='M2.75 0l-1.5 1.5L3.75 4l-2.5 2.5L2.75 8l4-4-4-4z'/%3e%3c/svg%3e");
 }
-
-
 
 .carousel-container {
     display:flex;
@@ -104,6 +116,10 @@
     width: 100%;
 }
 
+.form-group {
+    margin-bottom: 0rem;
+}
+
 .carousel-preview-image {
     height: auto;
     width: 12.5vw;
@@ -118,4 +134,19 @@
 .profile-name {
     font-size: 3rem;
     color: #484F6C;
+    line-height: 3rem;
+}
+
+.profile-save{
+    padding-left: 1rem;
+    color: deepskyblue
+}
+
+.profile-save:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.bi:hover{
+    cursor: pointer;
 }
