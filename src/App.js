@@ -33,7 +33,7 @@ class App extends React.Component{
     render(){
       return (
         <div className="App" style = {{width: '100%', height: '100%'}}>
-              <Header activePage={this.state.activePage} />
+              <Header activePage={this.state.activePage} switchPage={this.switchPage}/>
               <Login active={this.state.activePage === 'login'} switchPage={this.switchPage} />
               <ProfilePage active={this.state.activePage === 'userProfile'} switchPage={this.switchPage} />
               <Elimination active={this.state.activePage === 'elimination'} switchPage={this.switchPage} />
