@@ -71,13 +71,14 @@ export default class ProfilePage extends React.Component{
             userProfile.newImage = userProfile.profilepic;
 
             userProfile.images = [];
-
-            for (let i = 0; i < userProfile.gallerypics.length; i++) {
-                if (userProfile.gallerypics[i] && userProfile.gallerypics[i + 1] && userProfile.gallerypics[i] !== 'null') {
-                    userProfile.images.push(userProfile.gallerypics[i] + ',' + userProfile.gallerypics[i + 1]);
-                    i++;
-                } else {
-                    userProfile.images.push(userProfile.gallerypics[i]);
+            if (userProfile.gallerypics) {
+                for (let i = 0; i < userProfile.gallerypics.length; i++) {
+                    if (userProfile.gallerypics[i] && userProfile.gallerypics[i + 1] && userProfile.gallerypics[i] !== 'null') {
+                        userProfile.images.push(userProfile.gallerypics[i] + ',' + userProfile.gallerypics[i + 1]);
+                        i++;
+                    } else {
+                        userProfile.images.push(userProfile.gallerypics[i]);
+                    }
                 }
             }
 
@@ -112,12 +113,14 @@ export default class ProfilePage extends React.Component{
         userProfile.name = userProfile.firstname + ' ' + userProfile.lastname;
         userProfile.images = [];
 
-        for(let i = 0; i < userProfile.gallerypics.length;i++){
-            if(userProfile.gallerypics[i] && userProfile.gallerypics[i+1] && userProfile.gallerypics[i] !== 'null') {
-                userProfile.images.push(userProfile.gallerypics[i] + ',' + userProfile.gallerypics[i+1]);
-                i++;
-            } else{
-                userProfile.images.push(userProfile.gallerypics[i]);
+        if(userProfile.gallerypics){
+            for (let i = 0; i < userProfile.gallerypics.length; i++) {
+                if (userProfile.gallerypics[i] && userProfile.gallerypics[i + 1] && userProfile.gallerypics[i] !== 'null') {
+                    userProfile.images.push(userProfile.gallerypics[i] + ',' + userProfile.gallerypics[i + 1]);
+                    i++;
+                } else {
+                    userProfile.images.push(userProfile.gallerypics[i]);
+                }
             }
         }
 

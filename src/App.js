@@ -9,6 +9,7 @@ import ProfilePage from './UserProfile';
 import Pits from './Pits';
 import Matches from './Matches';
 import Questions from './Questions';
+import Elimination from './Components/Elimination'
 
 class App extends React.Component{
 
