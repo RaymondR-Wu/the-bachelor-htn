@@ -62,7 +62,7 @@ export default class Pits extends React.Component{
               return (
                 <List.Item>
                   {/* <Image style = {{height: '150px', width: '150px'}} src={`data:image/jpeg;base64,${item.photos}`} /> */}
-                  
+
                   <img onClick={() => this.clickedImage(item)} style={{position: 'absolute', height: '15vh', width: '15vh', borderRadius: '15vh', borderWidth: '2px', borderStyle: this.state.selected === item.username ? 'solid' : 'none', borderColor: 'red', top: '30vh', left: '50%', transform: `rotate(${360*idx/7}deg) translate(${30}vh) rotate(${-360*idx/7}deg)`}} src={`data:image/jpeg;base64,${item.photos}`} />
                 </List.Item>
               )
@@ -102,11 +102,23 @@ export default class Pits extends React.Component{
                             </div>
                             W/ Dwight Schrute, Janice, ...
                         </Menu.Item>
+                        <Menu.Item style = {{height: '10vh', borderColor: 'black', border: 'none'}} >
+                            <div style = {{textAlign: 'left'}}>
+                                +
+                            </div>
+                            Browse Open Pits
+                        </Menu.Item>
+                        <Menu.Item style = {{height: '10vh', borderColor: 'black', border: 'none'}} >
+                            <div style = {{textAlign: 'left'}}>
+                                +
+                            </div>
+                            Create Your Own Pit
+                        </Menu.Item>
                     </Menu>
 
 
                 </div>
-                <div style = {{position: 'relative', width: '100%', border: 'none', borderColor: 'orange', marginTop: '10px'}}> 
+                <div style = {{position: 'relative', width: '100%', border: 'none', borderColor: 'orange', marginTop: '10px'}}>
                     {this.imageList()}
                     <div style = {{position: 'relative', top: '23vh', left: '50%', height: '10%', width: '10%', alignItems: 'center', textAlign: 'center', color: 'white'}}>
                         WHO WILL BE ELIMINATED???
