@@ -7,13 +7,14 @@ import Login from './Login';
 import Header from './Components/Header';
 import ProfilePage from './UserProfile';
 import Elimination from './Components/Elimination';
+import Pits from './Pits';
 
 class App extends React.Component{
 
     constructor(props){
         super(props);
         this.state = {
-            activePage: 'elimination'
+            activePage: 'pits'
         }
     }
 
@@ -37,6 +38,7 @@ class App extends React.Component{
               <Login active={this.state.activePage === 'login'} switchPage={this.switchPage} />
               <ProfilePage active={this.state.activePage === 'userProfile'} switchPage={this.switchPage} />
               <Elimination active={this.state.activePage === 'elimination'} switchPage={this.switchPage} />
+              <Pits active = {this.state.activePage === 'pits'} switchPage={this.switchPage}/>
         </div>
       );
     }
