@@ -105,11 +105,16 @@ export default class Matches extends React.Component{
         if(!this.props.active) return null;
         return(
             <div style={{display: "flex", flex: "1 1 auto", flexDirection: "row", border:"2px solid yellow"}}>
-                <div style={{display: "flex", flex: 2, flexDirection: "column", alignItems: "center", border:"2px solid green", backgroundColor: "#E5E5E5"}}>
+
+                <div style={{display: "flex", flex: 2.3, flexDirection: "column", alignItems: "center", border:"2px solid green", width: '80%', backgroundColor: "#E5E5E5"}}>
+                    <div style = {{marginTop: '20px', fontSize: '30px'}}>
+                        Companions
+                    </div>
                     <Search style={{marginTop:"2rem", marginBottom:"2rem"}} placeholder="Search" open={false}/>
                     {this.renderMatches()}
                     <div style={{display: "flex", borderTop: "1px solid lightgrey", flex: 1, width:"100%", height:"100%", backgroundColor:"white"}} />
                 </div>
+
                 <div style={{display: "flex", flex: 6, border:"2px solid purple"}}>
                     {this.renderProfile()}
                 </div>

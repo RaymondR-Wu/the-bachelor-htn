@@ -79,6 +79,9 @@ export default class Pits extends React.Component{
         .then((res) => {
             console.log("good");
             localStorage.setItem('numThings', this.state.imageData.length-1);
+            this.setState({
+                selected: ""
+            })
             this.props.switchPage('questions');
         })
         .catch((err) => {
@@ -101,13 +104,9 @@ export default class Pits extends React.Component{
               return (
                 <List.Item>
                   {/* <Image style = {{height: '150px', width: '150px'}} src={`data:image/jpeg;base64,${item.photos}`} /> */}
+
                   <Popup trigger = {
-                  <img 
-                    onClick={() => this.clickedImage(item)} 
-                    style={{position: 'absolute', height: '15vh', width: '15vh', borderRadius: '15vh', borderWidth: '2px', borderStyle: this.state.selected === item.username ? 'solid' : 'none', borderColor: 'red', top: '30vh', left: '50%', transform: `rotate(${360*idx/num}deg) translate(${30}vh) rotate(${-360*idx/num}deg)`}} 
-                    src={imageSource} 
-                    alt = {item.username}
-                   />}> {item.username} </Popup>
+                  <img onClick={() => this.clickedImage(item)} style={{position: 'absolute', height: '15vh', width: '15vh', borderRadius: '15vh', borderWidth: '2px', borderStyle: this.state.selected === item.username ? 'solid' : 'none', borderColor: 'red', top: '30vh', left: '50%', transform: `rotate(${360*idx/num}deg) translate(${30}vh) rotate(${-360*idx/num}deg)`}} src={`${item.profilepic}`} alt = {item.username}/>}> {item.username} </Popup>
                 </List.Item>
               )
             })}
@@ -118,8 +117,8 @@ export default class Pits extends React.Component{
     render(){
         if(!this.props.active) return null;
         return(
-            <div style = {{display: "flex", flex: "1", width: "100vw", "flexDirection": "row", "background-color": "#524b00", border: 'none', borderColor: 'red'}}>
-                <div style = {{width: '40%', backgroundColor: "#E5E5E5", border: 'solid', borderColor: 'violet', margin: '0px', paddingTop: '20px'}}>
+            <div style = {{display: "flex", flex: "1", width: "100vw", "flexDirection": "row", "background-color": "black", border: 'none', borderColor: 'red'}}>
+                <div style = {{width: '40%', backgroundColor: "#E5E5E5", border: 'none', borderColor: 'violet', margin: '0px', paddingTop: '20px'}}>
                     <div style = {{fontSize: '30px'}}>
                         Chats
                     </div>
@@ -174,17 +173,20 @@ export default class Pits extends React.Component{
 
                 </div>
 
-                {/* <AnswerPage  /> */}
+                {/* <AnswerPage/> */}
                 <div style = {{position: 'relative', width: '100%', border: 'none', borderColor: 'orange', marginTop: '10px'}}> 
-                    <Button onClick = {this.clickedBack} labelPosition = "left" icon="left chevron" content = "Back" style = {{left: '0px', position: "absolute", margin: "0px 0px 0px 30px"}}/>
-                    {this.imageList()} 
+                    <Button onClick = {() => this.clickedBack()} labelPosition = "left" icon="left chevron" content = "Back" style = {{left: '0px', position: "absolute", margin: "0px 0px 0px 30px"}}/>
+                    {this.imageList()}
+                    
                     <div style = {{position: 'relative', top: '23vh', left: '50%', height: '10%', width: '10%', alignItems: 'center', textAlign: 'center', color: 'white'}}>
                         WHO SHALL BE ELIMINATED?
-                        <Button onClick = {this.onSubmit} style = {{marginTop: "2vh", height: '10vh', width: '10vh', borderRadius: '5vh', textAlign: 'center', justifyContent: 'center', alignItems: 'center', fontSize: '90%', padding: '0px'}}>
+                        <Button disabled = {this.state.selected === ""} onClick = {() => this.onSubmit()} style = {{marginTop: "2vh", height: '10vh', width: '10vh', borderRadius: '5vh', textAlign: 'center', justifyContent: 'center', alignItems: 'center', fontSize: '90%', padding: '0px'}}>
                             Submit
                         </Button>
                     </div>
                 </div>
+
+
             </div>
         )
     }
